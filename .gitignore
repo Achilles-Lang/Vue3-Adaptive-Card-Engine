@@ -5,3 +5,9 @@ dist
 *.log
 .DS_Store
 coverage
+
+# Project-local development files (not for public repo)
+.workbuddy-rules.md
+.workbuddy/
+*.md
+!README.md
