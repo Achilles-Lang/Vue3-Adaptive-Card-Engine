@@ -2,9 +2,9 @@
 
 > 数据驱动的自适应卡片渲染引擎 —— Data（{ type, data }）+ ComponentMap = UI
 
-[![CI](https://github.com/YOUR_USERNAME/vue3-adaptive-card-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/vue3-adaptive-card-engine/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/vue3-adaptive-card-engine)](https://www.npmjs.com/package/vue3-adaptive-card-engine)
-[![License](https://img.shields.io/npm/l/vue3-adaptive-card-engine)](./LICENSE)
+[![CI](https://github.com/Achilles-Lang/Vue3-Adaptive-Card-Engine/actions/workflows/ci.yml/badge.svg)](https://github.com/Achilles-Lang/Vue3-Adaptive-Card-Engine/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/vue3-adaptive-card-engine?color=cb3837&logo=npm)](https://www.npmjs.com/package/vue3-adaptive-card-engine)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 ---
 
@@ -46,7 +46,7 @@ registerCards([
 
 通过 GitHub Template 一键创建项目：
 
-1. 访问 [GitHub 仓库](https://github.com/YOUR_USERNAME/vue3-adaptive-card-engine)
+1. 访问 [GitHub 仓库](https://github.com/Achilles-Lang/Vue3-Adaptive-Card-Engine)
 2. 点击 "Use this template" → 选择 `template` 分支
 3. 运行 `pnpm install && pnpm dev`
 
