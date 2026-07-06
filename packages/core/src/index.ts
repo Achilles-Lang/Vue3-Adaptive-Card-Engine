@@ -1,0 +1,55 @@
+/**
+ * Vue3-Adaptive-Card-Engine
+ *
+ * 数据驱动的自适应卡片渲染引擎
+ *
+ * 核心理念：数据（{ type, data }）+ 映射表（componentMap）= 最终界面（UI）
+ *
+ * @packageDocumentation
+ *
+ * @example 快速开始
+ * ```typescript
+ * import { registerCards, CardEngine } from 'vue3-adaptive-card-engine'
+ * import TextCard from './cards/TextCard.vue'
+ * import TodoCard from './cards/TodoCard.vue'
+ *
+ * // 1. 注册卡片
+ * registerCards([
+ *   { type: 'text', component: TextCard },
+ *   { type: 'todo', component: TodoCard }
+ * ])
+ *
+ * // 2. 使用 CardEngine 渲染
+ * // <CardEngine :messages="messages" />
+ * ```
+ */
+
+// ========== 组件 ==========
+export { default as CardEngine } from './CardEngine.vue';
+export { default as FallbackCard } from './FallbackCard.vue';
+
+// ========== 注册中心 API ==========
+export {
+  registerCard,
+  registerCards,
+  getCardComponent,
+  resolveCardProps,
+  clearRegistry
+} from './registry';
+export type { ResolverFn, RegisterCardEntry } from './registry';
+
+// ========== 类型定义 ==========
+export {
+  BUILTIN_TYPES,
+  isBuiltinType
+} from './types';
+export type {
+  CardType,
+  BuiltinType,
+  TextCardData,
+  TodoCardData,
+  ProgressCardData,
+  ChartCardData,
+  CardMessage,
+  BuiltinCardMessages
+} from './types';

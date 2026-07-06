@@ -1,0 +1,44 @@
+{
+  "name": "vue3-adaptive-card-engine",
+  "version": "1.0.0",
+  "description": "A data-driven dynamic card rendering engine for Vue 3",
+  "type": "module",
+  "main": "./dist/vue3-adaptive-card-engine.umd.js",
+  "module": "./dist/vue3-adaptive-card-engine.es.js",
+  "types": "./dist/vue3-adaptive-card-engine.es.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-adaptive-card-engine.es.js",
+      "require": "./dist/vue3-adaptive-card-engine.umd.js",
+      "types": "./dist/vue3-adaptive-card-engine.es.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "vue": ">=3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/language-core": "^3.3.6",
+    "@vue/server-renderer": "^3.5.39",
+    "@vue/test-utils": "^2.4.11",
+    "jsdom": "^24.1.3",
+    "vite": "^8.1.3",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10"
+  },
+  "keywords": [
+    "vue3",
+    "adaptive-card",
+    "dynamic-rendering",
+    "card-engine"
+  ],
+  "license": "MIT"
+}
