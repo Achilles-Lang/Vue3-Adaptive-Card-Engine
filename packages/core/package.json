@@ -34,11 +34,19 @@
     "vite-plugin-dts": "^5.0.3",
     "vitest": "^4.1.10"
   },
+  "description": "Vue3 数据驱动自适应卡片渲染引擎，零 v-if 的动态 UI 方案",
   "keywords": [
     "vue3",
+    "dynamic-render",
+    "card-engine",
     "adaptive-card",
-    "dynamic-rendering",
-    "card-engine"
+    "ui-engine",
+    "lowcode"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Achilles-Lang/Vue3-Adaptive-Card-Engine.git"
+  },
+  "author": "Achilles Lang",
   "license": "MIT"
 }
