@@ -25,8 +25,10 @@
  */
 
 // ========== 组件 ==========
-export { default as CardEngine } from './CardEngine.vue';
-export { default as FallbackCard } from './FallbackCard.vue';
+import _CardEngine from './CardEngine.vue';
+import _FallbackCard from './FallbackCard.vue';
+export const CardEngine = _CardEngine;
+export const FallbackCard = _FallbackCard;
 
 // ========== 注册中心 API ==========
 export {

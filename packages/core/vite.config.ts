@@ -9,7 +9,8 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       include: ['src/**/*.ts', 'src/**/*.vue'],
-      outDir: 'dist'
+      outDir: 'dist',
+      rollupTypes: true
     })
   ],
   build: {

@@ -3,8 +3,7 @@
  * 示例应用 —— 演示 CardEngine 渲染 4 种卡片
  */
 import { ref } from 'vue';
-import type { CardMessage } from 'vue3-adaptive-card-engine';
-import CardEngine from 'vue3-adaptive-card-engine/CardEngine.vue';
+import { CardEngine, type CardMessage } from 'vue3-adaptive-card-engine';
 
 const messages = ref<CardMessage[]>([
   {
