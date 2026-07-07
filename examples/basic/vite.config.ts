@@ -25,6 +25,13 @@ function apiPlugin(): Plugin {
   return {
     name: 'adaptive-card-api',
     configureServer(server) {
+      // 启动时检测 .env.local
+      const envVars = loadEnvLocal();
+      const hasKey = ['GEMINI_API_KEY','DEEPSEEK_API_KEY','OPENAI_API_KEY','ANTHROPIC_API_KEY']
+        .some(k => envVars[k] && envVars[k].trim() && !envVars[k].startsWith('your_'));
+      console.log(hasKey
+        ? '  🟢 AI mode: API key detected — real AI responses enabled'
+        : '  🟡 Mock mode: No API key found in .env.local — using offline simulation. Copy .env.example to .env.local and add your key.');
       server.middlewares.use(async (req, res, next) => {
         if (req.url !== '/api/chat' || req.method !== 'POST') return next();
 

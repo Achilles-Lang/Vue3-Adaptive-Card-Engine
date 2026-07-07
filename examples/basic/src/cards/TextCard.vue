@@ -3,58 +3,24 @@
  * 文本卡片 —— 支持 Markdown 渲染
  */
 import { computed } from 'vue';
+import { useMarkdown, inline } from '../composables/useMarkdown';
 
 const props = defineProps<{ content: string }>();
 
-// 轻量 Markdown 解析器：h1/h2/h3, bold, code, list, blockquote, paragraph
-const rendered = computed<Array<{ tag: string; text: string; children?: string[] }>>(() => {
-  const blocks: Array<{ tag: string; text: string; children?: string[] }> = [];
-  const lines = props.content.split('\n');
-  let listItems: string[] = [];
-
-  function flushList() {
-    if (listItems.length) {
-      blocks.push({ tag: 'ul', text: '', children: listItems });
-      listItems = [];
-    }
-  }
-
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (!line) { flushList(); continue; }
-
-    if (line.startsWith('### ')) { flushList(); blocks.push({ tag: 'h3', text: line.slice(4) }); }
-    else if (line.startsWith('## ')) { flushList(); blocks.push({ tag: 'h2', text: line.slice(3) }); }
-    else if (line.startsWith('# ')) { flushList(); blocks.push({ tag: 'h1', text: line.slice(2) }); }
-    else if (line.startsWith('> ')) { flushList(); blocks.push({ tag: 'bq', text: line.slice(2) }); }
-    else if (line.startsWith('- ') || line.startsWith('* ')) { listItems.push(line.slice(2)); }
-    else { flushList(); blocks.push({ tag: 'p', text: line }); }
-  }
-  flushList();
-  return blocks;
-});
-
-// 内联解析：**bold** 和 `code`
-function parseInline(text: string): { html: string } {
-  return {
-    html: text
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/`(.+?)`/g, '<code class="il-code">$1</code>')
-  };
-}
+const { blocks } = computed(() => useMarkdown(props.content)).value;
 </script>
 
 <template>
   <div class="ace-card ace-card--text">
-    <template v-for="(block, i) in rendered" :key="i">
-      <h1 v-if="block.tag === 'h1'" class="md-h1" v-html="parseInline(block.text).html" />
-      <h2 v-else-if="block.tag === 'h2'" class="md-h2" v-html="parseInline(block.text).html" />
-      <h3 v-else-if="block.tag === 'h3'" class="md-h3" v-html="parseInline(block.text).html" />
-      <blockquote v-else-if="block.tag === 'bq'" class="md-bq" v-html="parseInline(block.text).html" />
+    <template v-for="(block, i) in blocks" :key="i">
+      <h1 v-if="block.tag === 'h1'" class="md-h1" v-html="inline(block.text)" />
+      <h2 v-else-if="block.tag === 'h2'" class="md-h2" v-html="inline(block.text)" />
+      <h3 v-else-if="block.tag === 'h3'" class="md-h3" v-html="inline(block.text)" />
+      <blockquote v-else-if="block.tag === 'bq'" class="md-bq" v-html="inline(block.text)" />
       <ul v-else-if="block.tag === 'ul'" class="md-ul">
-        <li v-for="(item, j) in block.children" :key="j" v-html="parseInline(item).html" />
+        <li v-for="(item, j) in block.children" :key="j" v-html="inline(item)" />
       </ul>
-      <p v-else class="md-p" v-html="parseInline(block.text).html" />
+      <p v-else class="md-p" v-html="inline(block.text)" />
     </template>
 
     <p v-if="!rendered.length" class="md-p">{{ content }}</p>

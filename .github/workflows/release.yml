@@ -32,3 +32,6 @@ jobs:
         run: pnpm --filter vue3-adaptive-card-engine publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Sync template branch
+        run: bash scripts/sync-template.sh

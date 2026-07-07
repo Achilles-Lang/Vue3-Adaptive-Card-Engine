@@ -24,6 +24,10 @@
  * ```
  */
 
+// ========== Composable ==========
+export { useCardEngine } from './useCardEngine';
+export type { CardRegistration } from './useCardEngine';
+
 // ========== 组件 ==========
 import _CardEngine from './CardEngine.vue';
 import _FallbackCard from './FallbackCard.vue';

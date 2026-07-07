@@ -35,14 +35,22 @@ function getComponent(msg: CardMessage): Component {
 }
 
 /**
- * 解析组件所需的 props，附带 key 信息用于 v-bind
+ * 是否为兜底渲染（未匹配到注册组件）
+ */
+function isFallback(msg: CardMessage): boolean {
+  return getCardComponent(msg.type) === null;
+}
+
+/**
+ * 解析组件所需的 props
+ * 仅对兜底组件注入 type 字段，避免与业务组件的 type prop 冲突
  */
 function getProps(msg: CardMessage): Record<string, unknown> {
-  return {
-    ...resolveCardProps(msg),
-    // 额外传入 type，供兜底组件显示
-    type: msg.type
-  };
+  const base = resolveCardProps(msg);
+  if (isFallback(msg)) {
+    return { ...base, type: msg.type };
+  }
+  return base;
 }
 </script>
 

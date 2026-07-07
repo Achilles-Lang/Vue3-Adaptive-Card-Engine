@@ -46,24 +46,34 @@ export function generateResponse(promptText: string): SimulatedResponse {
     return buildShowcase(notice);
   }
 
-  // 1. 销售业绩
+  // 项目健康报告
+  if (isHealth(prompt)) {
+    return buildHealth(notice);
+  }
+
+  // 销售业绩
   if (isSales(prompt)) {
     return buildSales(notice);
   }
 
-  // 2. 旅行行程
+  // 旅行行程
   if (isTravel(prompt)) {
     return buildTravel(notice);
   }
 
-  // 3. 开发计划
+  // 开发计划 / 里程碑
   if (isDevPlan(prompt)) {
     return buildDevPlan(notice);
   }
 
-  // 4. SaaS 指标
+  // SaaS 指标 / 监控面板
   if (isSaaS(prompt)) {
     return buildSaaS(notice);
+  }
+
+  // 团队名片
+  if (isTeam(prompt)) {
+    return buildTeam(notice);
   }
 
   // 默认：通用响应
@@ -75,7 +85,12 @@ export function generateResponse(promptText: string): SimulatedResponse {
 // ============================================================
 
 function isShowcase(s: string): boolean {
-  const kw = ['卡片', '样式', '种类', '类型', '展示', '演示', 'showcase', '几', 'format'];
+  const kw = ['卡片类型', '展示全部', 'showcase', '全部卡片'];
+  return kw.some((k) => s.includes(k));
+}
+
+function isHealth(s: string): boolean {
+  const kw = ['健康', '报告', 'health', '组合', '多种', '5种','五种'];
   return kw.some((k) => s.includes(k));
 }
 
@@ -95,7 +110,12 @@ function isDevPlan(s: string): boolean {
 }
 
 function isSaaS(s: string): boolean {
-  const kw = ['saas', 'kpi', 'business', 'metric', '指标', '数据', '仪表盘', '看板'];
+  const kw = ['saas', 'kpi', 'business', 'metric', '指标', '数据', '仪表盘', '看板', '监控', '面板'];
+  return kw.some((k) => s.includes(k));
+}
+
+function isTeam(s: string): boolean {
+  const kw = ['团队', '名片', 'team', 'profile', '成员'];
   return kw.some((k) => s.includes(k));
 }
 
@@ -279,6 +299,72 @@ function buildSaaS(notice: string): SimulatedResponse {
       }),
       msg('sa_text', 'text', {
         content: '### 运营建议\n- **MRR 稳步攀升**：环比月增长约 **9%**，LTV/CAC 乘数健康\n- **流失率可控**：月流失 1.45% 低于 SaaS 行业基准 3-5%\n- **增长引擎**：企业客户数量季度环比增长 **18%**，推动 MRR 加速'
+      })
+    ]
+  };
+}
+
+function buildHealth(notice: string): SimulatedResponse {
+  return {
+    message: '项目健康报告已生成，涵盖代码质量、构建效率、团队活跃度和迭代趋势。' + notice,
+    cards: [
+      msg('h_text', 'text', {
+        content: '### 项目健康摘要\n\n- **整体状态**：优秀，所有核心指标均达标\n- **代码覆盖率** 由上季度 82% 提升至 **87%** ，测试覆盖持续改善\n- **构建耗时** 中位数稳定在 4.8s，较上月优化 **1.2s**\n- **活跃 Issue** 数量下降至 12 个，社区响应速度提升 **40%**\n- > 建议：增加 E2E 测试覆盖 API 关键路径'
+      }),
+      msg('h_metric', 'metric', {
+        title: '核心健康指标',
+        metrics: [
+          { label: '代码覆盖率', value: '87%', change: '+5%', trend: 'up' },
+          { label: '构建耗时', value: '4.8s', change: '-1.2s', trend: 'down' },
+          { label: '活跃 Issue', value: '12', change: '-8', trend: 'down' },
+          { label: 'PR 合并速度', value: '6.2h', change: '快于目标', trend: 'up' }
+        ]
+      }),
+      msg('h_chart', 'chart', {
+        title: '迭代趋势（近 6 周）',
+        labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
+        values: [14, 18, 22, 19, 25, 30]
+      }),
+      msg('h_todo', 'todo', {
+        todos: [
+          { id: 'ht1', content: '修复 API 超时重试逻辑', done: true },
+          { id: 'ht2', content: '补充 E2E 测试覆盖登录流程', done: false },
+          { id: 'ht3', content: '优化 Webpack chunk 分包策略', done: false },
+          { id: 'ht4', content: '升级 TypeScript 到 5.8', done: true }
+        ]
+      }),
+      msg('h_progress', 'progress', {
+        title: '本迭代完成度',
+        percentage: 72
+      })
+    ]
+  };
+}
+
+function buildTeam(notice: string): SimulatedResponse {
+  return {
+    message: '团队核心成员名片已生成。' + notice,
+    cards: [
+      msg('tm1', 'profile', {
+        title: '前端负责人',
+        name: '张明远',
+        role: 'Senior Frontend Engineer',
+        bio: 'Vue 核心贡献者，专注组件化架构与前端工程化。主导了 Adaptive Card Engine 的设计与实现。',
+        contact: { github: 'https://github.com/zhangmy' }
+      }),
+      msg('tm2', 'profile', {
+        title: '全栈工程师',
+        name: '李思涵',
+        role: 'Full-stack Developer',
+        bio: '跨框架经验丰富，擅长 React/Vue/Node.js。负责 API 网关与微服务架构设计。',
+        contact: { github: 'https://github.com/li-sihan' }
+      }),
+      msg('tm3', 'profile', {
+        title: '技术经理',
+        name: '王浩然',
+        role: 'Engineering Manager',
+        bio: '10 年研发管理经验，带领 15 人团队交付了多个千万级用户产品。',
+        contact: { github: 'https://github.com/wanghr', email: 'wanghr@example.com' }
       })
     ]
   };

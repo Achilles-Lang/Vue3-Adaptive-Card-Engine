@@ -234,7 +234,7 @@ const filterKeys = Object.keys(filterLabels);
 
         <!-- 快捷 Prompt -->
         <div class="panel__chips">
-          <button v-for="p in ['展示全部卡片类型','销售业绩报表','京都旅行规划','开发任务里程碑']" :key="p" class="panel__chip" :disabled="isThinking" @click="handleSend(p)">{{ p }}</button>
+          <button v-for="p in ['展示全部卡片类型','项目健康报告','Q2销售业绩','京都三日游','监控面板','团队名片']" :key="p" class="panel__chip" :disabled="isThinking" @click="handleSend(p)">{{ p }}</button>
         </div>
 
         <!-- 卡片选择器 -->
@@ -301,13 +301,13 @@ const filterKeys = Object.keys(filterLabels);
           <div v-else class="chat-view">
             <template v-for="m in chatHistory" :key="m.id">
               <!-- 用户消息 -->
-              <div class="chat-msg chat-msg--user">
+              <div v-if="m.role === 'user'" class="chat-msg chat-msg--user">
                 <span class="chat-msg__avatar">U</span>
                 <div class="chat-msg__bubble chat-msg__bubble--user">{{ m.content }}</div>
               </div>
 
               <!-- AI 消息 + 关联卡片 -->
-              <div v-if="m.role === 'assistant'" class="chat-msg chat-msg--ai">
+              <div v-else class="chat-msg chat-msg--ai">
                 <span class="chat-msg__avatar chat-msg__avatar--ai">AI</span>
                 <div class="chat-msg__body">
                   <div v-if="m.content" class="chat-msg__bubble chat-msg__bubble--ai" v-html="m.content.replace(/\n/g, '<br>')" />
