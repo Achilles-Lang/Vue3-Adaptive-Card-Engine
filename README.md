@@ -73,7 +73,6 @@ graph LR
 - [API 文档](#api-文档)
 - [卡片类型](#卡片类型)
 - [本地开发](#本地开发)
-- [改进方向](#改进方向)
 
 ---
 
@@ -263,28 +262,7 @@ pnpm build
 
 ---
 
-## 改进方向
-
-以下是项目当前可优化的事项。已完成项标记 ✅。
-
-### 🟡 代码层面
-
-1. ✅ **CardEngine 透传 `type` prop 冲突** —— 已修复，仅对 FallbackCard 注入。
-2. ✅ **TextCard 的 Markdown 解析器独立封装** —— 已抽取为 `src/composables/useMarkdown.ts`。
-3. **Mock 引擎数据池可进一步扩充** —— 已从 5 个场景扩展到 8 个，可考虑让 LLM 预生成更多 JSON 例句。
-
-### 🟢 工程层面
-
-4. **CI 增加 E2E 截图测试** —— 可加入 Playwright 对演示页面做截图对比。
-5. ✅ **`pnpm dev` 启动时检测 `.env.local` 并提示** —— 已实现，启动时显示 🟢 AI / 🟡 Mock 模式。
-6. ✅ **Release CI 自动同步 template 分支** —— 已集成到 `release.yml`。
-7. ✅ **`examples/basic` 的 AI 依赖精简** —— `optionalDependencies` 已全部移除。
-
-### 🔵 产品层面
-
-8. ✅ **Core 包 `useCardEngine` composable** —— 已实现，`packages/core/src/useCardEngine.ts`。
-9. **卡片支持拖拽排序** —— Canvas 列表中的卡片可加拖拽重排。
-10. **React / Svelte 版本 Engine 核心** —— 架构不限于 Vue，可扩展到其他框架。
+> 改进方向与路线图详见 [改进方向.md](./改进方向.md)
 
 ---
 
