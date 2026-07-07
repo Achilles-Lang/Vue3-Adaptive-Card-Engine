@@ -1,99 +1,52 @@
 <script setup lang="ts">
-/**
- * 待办卡片
- *
- * 渲染待办列表，每项带复选框，v-model 绑定完成状态。
- * 仅前端交互，不涉及后端同步。
- */
+import { ref, computed } from 'vue';
 
-import { ref } from 'vue';
+interface Todo { id: string; content: string; done?: boolean }
 
-interface Todo {
-  id: string;
-  content: string;
-  done?: boolean;
-}
-
-const props = defineProps<{
-  todos: Todo[];
-}>();
-
-// 响应式完成状态（复制一份用于前端交互）
+const props = defineProps<{ todos: Todo[] }>();
 const items = ref<Todo[]>([...props.todos]);
 
-function toggleDone(id: string): void {
-  const item = items.find((t) => t.id === id);
-  if (item) {
-    item.done = !item.done;
-  }
+const done = computed(() => items.value.filter((t) => t.done).length);
+const total = computed(() => items.value.length);
+const pct = computed(() => total.value ? Math.round((done.value / total.value) * 100) : 0);
+
+function toggle(id: string) {
+  const item = items.value.find((t) => t.id === id);
+  if (item) item.done = !item.done;
 }
 </script>
 
 <template>
   <div class="ace-card ace-card--todo">
-    <ul class="ace-todo-list">
-      <li
-        v-for="item in items"
-        :key="item.id"
-        class="ace-todo-list__item"
-        :class="{ 'ace-todo-list__item--done': item.done }"
-        @click="toggleDone(item.id)"
-      >
-        <span class="ace-todo-list__checkbox">
-          {{ item.done ? '✅' : '☐' }}
-        </span>
-        <span class="ace-todo-list__content">
-          {{ item.content }}
-        </span>
+    <div class="hd">
+      <span class="hd__count">{{ done }} / {{ total }} 完成</span>
+    </div>
+    <div class="bar">
+      <div class="bar__fill" :style="{ width: pct + '%' }" />
+    </div>
+    <ul class="list">
+      <li v-for="item in items" :key="item.id" class="list__item" :class="{ 'list__item--done': item.done }" @click="toggle(item.id)">
+        <span class="list__check">{{ item.done ? '✓' : '○' }}</span>
+        <span class="list__text">{{ item.content }}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <style scoped>
-.ace-card--todo {
-  padding: 12px 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-}
+.ace-card--todo { padding: 16px 22px; background: var(--bg-card); border-radius: 8px; }
 
-.ace-todo-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+.hd { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.hd__count { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--accent); }
 
-.ace-todo-list__item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.bar { height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; margin-bottom: 12px; }
+.bar__fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s ease; }
 
-.ace-todo-list__item:last-child {
-  border-bottom: none;
-}
-
-.ace-todo-list__item:hover {
-  background: #fafafa;
-}
-
-.ace-todo-list__item--done .ace-todo-list__content {
-  text-decoration: line-through;
-  color: #bbb;
-}
-
-.ace-todo-list__checkbox {
-  font-size: 16px;
-  flex-shrink: 0;
-}
-
-.ace-todo-list__content {
-  font-size: 15px;
-  color: #333;
-}
+.list { list-style: none; margin: 0; padding: 0; }
+.list__item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: background 0.15s; }
+.list__item:hover { background: var(--bg-hover); }
+.list__item--done .list__text { text-decoration: line-through; color: var(--text-dim); }
+.list__check { font-size: 14px; flex-shrink: 0; color: var(--accent); }
+.list__item--done .list__check { color: var(--text-dim); }
+.list__text { font-size: 14px; color: var(--text-secondary); }
 </style>

@@ -9,5 +9,6 @@ coverage
 # Project-local development files (not for public repo)
 .workbuddy-rules.md
 .workbuddy/
+.env.local
 *.md
 !README.md

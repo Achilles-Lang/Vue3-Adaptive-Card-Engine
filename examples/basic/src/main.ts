@@ -1,21 +1,12 @@
 import { createApp } from 'vue';
-import { registerCards, CardEngine } from 'vue3-adaptive-card-engine';
-import TextCard from './cards/TextCard.vue';
-import TodoCard from './cards/TodoCard.vue';
-import ProgressCard from './cards/ProgressCard.vue';
-import ChartCard from './cards/ChartCard.vue';
 import App from './App.vue';
 
 /**
- * 批量注册所有内置卡片
- * data 结构与各卡片 Props 一一对应，无需额外 resolve 函数
+ * 演示应用入口
+ *
+ * 注意：这里的卡片组件由 App.vue 本地管理，
+ * 不通过 registerCards 全局注册，以展示完整的状态编排能力。
+ * 如需在 CardEngine 中使用这些卡片，参考侧边栏中的代码示例。
  */
-registerCards([
-  { type: 'text', component: TextCard },
-  { type: 'todo', component: TodoCard },
-  { type: 'progress', component: ProgressCard },
-  { type: 'chart', component: ChartCard }
-]);
-
 const app = createApp(App);
 app.mount('#app');
