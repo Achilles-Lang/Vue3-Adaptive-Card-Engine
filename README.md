@@ -25,11 +25,11 @@ graph LR
 
 项目包含一个完整的交互式演示应用，支持自然语言输入、AI 驱动的卡片生成、混合组合展示。
 
-![演示主界面 —— 暗色模式，左侧输入面板 + 右侧对话视图](screenshots/demo-main-dark.png)
+![演示主界面 —— 暗色模式，左侧输入面板 + 右侧对话视图](images/index.png)
 
-![卡片组合展示 —— 文本、指标、图表、清单、进度五合一项目健康报告](screenshots/demo-cards-combo.png)
+![卡片组合展示 —— 文本、指标、图表、清单、进度五合一项目健康报告](images/view.png)
 
-![浅色主题 —— 切换到亮色模式后的界面效果](screenshots/demo-light-mode.png)
+![浅色主题 —— 切换到亮色模式后的界面效果](images/dark.png)
 
 ---
 
