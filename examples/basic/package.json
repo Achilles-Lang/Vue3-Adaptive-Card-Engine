@@ -12,12 +12,6 @@
     "vue": "^3.5.39",
     "vue3-adaptive-card-engine": "workspace:*"
   },
-  "optionalDependencies": {
-    "@anthropic-ai/sdk": "^0.50.0",
-    "@google/genai": "^1.0.0",
-    "dotenv": "^16.0.0",
-    "openai": "^5.0.0"
-  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.7"
   }
