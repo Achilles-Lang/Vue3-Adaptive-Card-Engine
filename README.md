@@ -265,26 +265,26 @@ pnpm build
 
 ## 改进方向
 
-以下是项目当前可优化的事项，按优先级排列：
+以下是项目当前可优化的事项。已完成项标记 ✅。
 
 ### 🟡 代码层面
 
-1. **CardEngine 透传 `type` prop 冲突** —— `CardEngine.vue` 的 `getProps` 方法对所有子组件注入 `type` 字段，可能与自定义组件的 `type` prop 冲突。建议仅对 FallbackCard 注入。
-2. **TextCard 的 Markdown 解析器可独立封装** —— 当前在组件内用 `computed` 实现，功能完整但不够模块化。可抽为 `useMarkdown()` composable 或独立工具函数。
-3. **Mock 引擎关键词匹配可改为 AI 辅助生成** —— 当前 5 个场景是硬编码的，可考虑让 LLM 预先批量生成 JSON 例句存入 mock 数据池。
+1. ✅ **CardEngine 透传 `type` prop 冲突** —— 已修复，仅对 FallbackCard 注入。
+2. ✅ **TextCard 的 Markdown 解析器独立封装** —— 已抽取为 `src/composables/useMarkdown.ts`。
+3. **Mock 引擎数据池可进一步扩充** —— 已从 5 个场景扩展到 8 个，可考虑让 LLM 预生成更多 JSON 例句。
 
 ### 🟢 工程层面
 
-4. **GitHub Actions CI 可增加 E2E 测试** —— 当前只有类型检查 + 单元测试，可加入 Playwright 对演示页面做截图对比。
-5. **`pnpm dev` 启动时自动检测 `.env.local` 并提示** —— 当前无任何提示，用户可能不知道卡在 Mock 模式。
-6. **Template 分支同步脚本未在 CI 中自动化** —— `scripts/sync-template.sh` 可集成到 release workflow 中。
-7. **`examples/basic` 的 AI 依赖可精简** —— `optionalDependencies` 中的 `@google/genai` / `@anthropic-ai/sdk` / `openai` 在实际使用 fetch 兜底时并非必需，可考虑完全移除 SDK 依赖，统一用 fetch。
+4. **CI 增加 E2E 截图测试** —— 可加入 Playwright 对演示页面做截图对比。
+5. ✅ **`pnpm dev` 启动时检测 `.env.local` 并提示** —— 已实现，启动时显示 🟢 AI / 🟡 Mock 模式。
+6. ✅ **Release CI 自动同步 template 分支** —— 已集成到 `release.yml`。
+7. ✅ **`examples/basic` 的 AI 依赖精简** —— `optionalDependencies` 已全部移除。
 
 ### 🔵 产品层面
 
-8. **Core 包可增加 `useCardEngine` composable** —— 配合 Vue 3 Composition API，让开发者用 `const { register, messages } = useCardEngine()|` 方式使用，体验更丝滑。
-9. **卡片支持自定义排序/拖拽** —— Canvas 列表中的卡片目前按生成顺序排列，可加拖拽重排。
-10. **增加 React / Svelte 版本的 Engine 核心** —— 架构不限于 Vue，可扩展到其他框架。
+8. ✅ **Core 包 `useCardEngine` composable** —— 已实现，`packages/core/src/useCardEngine.ts`。
+9. **卡片支持拖拽排序** —— Canvas 列表中的卡片可加拖拽重排。
+10. **React / Svelte 版本 Engine 核心** —— 架构不限于 Vue，可扩展到其他框架。
 
 ---
 
