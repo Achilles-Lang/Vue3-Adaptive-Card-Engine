@@ -34,4 +34,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Sync template branch
-        run: bash scripts/sync-template.sh
+        run: |
+          git checkout main
+          git pull origin main
+          bash scripts/sync-template.sh
